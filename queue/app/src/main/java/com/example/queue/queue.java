@@ -1,14 +1,17 @@
 package com.example.queue;
 
 
-public class queue<T> {
+public class queue<T extends Comparable <T>> {
+
     /* inherent properties of a queue*/
-    private int size = 0;
-    private node<T> root;
-    private node<T> tail;
+    protected int size = 0;
+    protected node<T> root;
+    protected node<T> tail;
+    protected node<T> header;
 
     /*creation of queue*/
     public queue() {
+        header = new node<T>(null);
         root = null;
         tail = null;
         size = 0;
@@ -37,9 +40,19 @@ public class queue<T> {
             return null;
         }
         T aValue = root.getV();
-        root = root.getNext();
+        node<T> temp  = root.getNext();
+
+        root.setNext(null);
+        root = temp;
         size--;
         return aValue;
+    }
+    public void print() {
+        node<T> temp = root;
+        while (temp != header) {
+            System.out.println("printing q: " + temp.getV());
+            temp = temp.getNext();
+        }
     }
     public int length() {
         return size;

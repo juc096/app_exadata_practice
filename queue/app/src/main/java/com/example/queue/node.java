@@ -1,10 +1,11 @@
 package com.example.queue;
 
-public class node<T> {
+public class node<T extends Comparable<T>> {
 
     /* inherent properties of a node*/
     private T value;
     private node<T> next;
+
 
     /*creation of node*/
     public node(T v) {
@@ -24,4 +25,5 @@ public class node<T> {
     public node<T> getNext() {
         return next;
     }
+
 }
