@@ -78,17 +78,17 @@ public class graph<T> {
         Hashtable<T, Integer> sp_table = new Hashtable<>();
         for (T vtx : vertices.keySet())
             sp_table.put(vtx, -1);
+        sp_table.put(start, 0);
 
         Queue<T> q = new LinkedList<T>();
         Set<T> visited = new HashSet<>();
 
-        int distance = 0;
         q.add(start);
 
         while (!q.isEmpty()) {
             T temp = q.peek();
             q.poll();
-            distance = sp_table.get(temp);
+
             if(!visited.contains(temp)) {
                 visited.add(temp);
                 vertex<T> aNode = vertices.get(temp);
@@ -97,18 +97,17 @@ public class graph<T> {
 
                     int edge_weight = 1;
                     Integer neighbor_sp = sp_table.get(v.getV());
+                    int distance = sp_table.get(temp);
 
                     if ((neighbor_sp == -1 ) ||
-                            (neighbor_sp + edge_weight < distance))
-                        sp_table.put(v.getV(), neighbor_sp + edge_weight);
+                            (distance + edge_weight < neighbor_sp))
+                        sp_table.put(v.getV(), distance + edge_weight);
                 }
             }
-            else
-
         }
 
 
-        return shortest_path;
+        return sp_table;
     }
     public static void main(String[] args) {
         graph<Integer> g = new graph<Integer>();
@@ -121,13 +120,6 @@ public class graph<T> {
         g.connect(1, 5);
         g.connect(5,6);
         g.connect(0,7);
-        System.out.print("dfs : ");
-        g.dfs_traversal(0);
-        System.out.println();
-        System.out.print("bfs : ");
-        g.bfs_traversal(0);
-        System.out.println();
-
         /*
                 0
                / \
@@ -139,5 +131,21 @@ public class graph<T> {
          /
         4
       */
+
+        System.out.print("dfs : ");
+        g.dfs_traversal(0);
+        System.out.println();
+        System.out.print("bfs : ");
+        g.bfs_traversal(0);
+        System.out.println();
+
+        g.connect(1,4);
+        Hashtable<Integer, Integer> sp = g.shortest_path(7);
+        for (int i = 0; i < 8; i++)
+            System.out.println("shortest path from 7" +
+                    " to " + i + ": " + sp.get(i));
+
+
+
     }
 }
