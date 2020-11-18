@@ -36,7 +36,7 @@ public class java_test_part2 {
     }
 
     //10 check if two strings are anagrams
-    // 30-40m
+    // 20-30min
 
     public boolean are_anagrams(String s1, String s2) {
         //if string lengths are unequal, theyre not anagrams
@@ -100,6 +100,7 @@ public class java_test_part2 {
         return s1.replace(c, r);
     }
     //13
+    //not finished
     Set<String> perms = new HashSet<>();
     public void permutations(String s) {
         //base cases
