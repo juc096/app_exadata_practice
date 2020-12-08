@@ -83,6 +83,7 @@ public class binarytree<T extends Comparable<T> >  {
 
     }
 
+
     /*
         avg time complexity: O(logN)
         worst case: O(N)
@@ -96,6 +97,55 @@ public class binarytree<T extends Comparable<T> >  {
         }
         return aNode;
 
+    }
+    /*
+        dfs implemented w/ recursion
+     */
+    public t_node<T> dfs_rec(T v, t_node<T> aNode) {
+        //base cases
+        if (aNode == null) // (aNode.isVisited()) OR IF NODE VISITED
+            return null;
+        if (aNode.getValue().compareTo(v) == 0)
+            return aNode;
+
+        //SET NODE VISITED
+        //aNode.visited()
+
+        //find neighbors and traverse
+        t_node<T> temp = dfs_rec(v, aNode.left);
+        if (temp == null)
+            temp = dfs_rec(v, aNode.right);
+        return temp;
+
+    }
+    /*
+        dfs using while loop
+        Time Complexity: O(|E| + |V|)
+        Space Complexity: O(|V|)
+     */
+    public t_node<T> dfs(T v) {
+        //stack mimics depth search behavior
+        Stack<t_node<T>> st = new Stack<t_node<T>>();
+        st.push(root);
+        t_node<T> aNode = null; //node to return
+
+        while(!st.isEmpty()) {
+            //pop stack and look at element
+            aNode = st.peek();
+            st.pop();
+
+            //SET NODE VISITED
+            //aNode.visited()
+
+            if (aNode.getValue().compareTo(v) == 0) // (aNode.isVisited()) OR IF NODE VISITED
+                break;
+            //if value not found, add neighbors onto stack
+            if (aNode.left != null)
+                st.push(aNode.left);
+            if (aNode.right != null)
+                st.push(aNode.right);
+        }
+        return aNode;
     }
     /*test main*/
     public static void main(String[] args) {
@@ -117,6 +167,10 @@ public class binarytree<T extends Comparable<T> >  {
         catch (NullPointerException e) {
             System.out.println("50 not found");
         }
+        System.out.println("finding 7 with dfs: ");
+        System.out.println("found: " +  tr.dfs(7).getValue());
+        System.out.println("finding 7 with dfs rec: ");
+        System.out.println("found: " +  tr.dfs_rec(7, tr.root).getValue());
     }
 
 

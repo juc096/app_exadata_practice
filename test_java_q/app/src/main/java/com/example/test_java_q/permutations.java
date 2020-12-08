@@ -80,6 +80,12 @@ public class permutations {
         if (perm_set.size() != ((4*3*2*1) + (4*3*2) + (4*3) + (4*1)))
             System.out.println("Something when wrong");
 
+        String s = "ab";
+        String s1 = "az";
+        System.out.println("Hi");
+        System.out.println(s.compareTo(s1));
+        System.out.println(s1.compareTo(s));
+
     }
 }
 
